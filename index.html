@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Managed IT Health Check — Zion Tech Group</title>
+<meta name="description" content="Faça um diagnóstico rápido da sua infraestrutura IT gerenciada. 10 perguntas, relatório de risco e próximo passo. Sem cadastro.">
+<link rel="canonical" href="https://ziontechgroup.com/managed-it-health-check/">
+<meta property="og:title" content="Managed IT Health Check — Zion Tech Group">
+<meta property="og:description" content="10 perguntas para diagnosticar sua infraestrutura IT e receber um relatório de risco.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ziontechgroup.com/managed-it-health-check/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --muted: #8888a0;
+    --accent: #4f8cff;
+    --accent2: #7c5cff;
+    --green: #34d399;
+    --red: #f87171;
+    --yellow: #fbbf24;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+  .logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); text-decoration: none; }
+  .logo span { color: var(--text); }
+  nav { display: flex; gap: 20px; align-items: center; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  nav a:hover { color: var(--text); }
+  nav .btn-nav { background: var(--accent); color: #fff !important; padding: 6px 14px; border-radius: 6px; font-weight: 600; }
+  nav .btn-nav:hover { background: var(--accent2); color: #fff !important; }
+  main { padding: 48px 0 80px; }
+  h1 { font-size: 2.4rem; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 40px; max-width: 600px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+  .card h2 { font-size: 1.2rem; margin-bottom: 20px; color: var(--text); }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+  .form-group input, .form-group select { width: 100%; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 1rem; font-family: var(--font); transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+  .form-group input[type="radio"] { display: none; }
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+  .radio-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
+  .radio-option:hover { border-color: var(--accent); }
+  .radio-option.selected { border-color: var(--accent); background: rgba(79,140,255,0.1); }
+  .radio-option::before { content: ''; width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 50%; flex-shrink: 0; transition: border-color 0.2s; }
+  .radio-option.selected::before { border-color: var(--accent); background: var(--accent); }
+  .radio-option input { display: none; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 1rem; border: none; cursor: pointer; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; width: 100%; justify-content: center; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,140,255,0.3); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text); padding: 10px 20px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; border: 1px solid var(--border); cursor: pointer; text-decoration: none; transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--accent); }
+  .results { display: none; margin-top: 32px; animation: fadeUp 0.4s ease; }
+  .results.visible { display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  @media (max-width: 480px) { .risk-grid { grid-template-columns: 1fr; } }
+  .risk-item { background: var(--surface2); border-radius: 8px; padding: 14px; border-left: 3px solid var(--muted); }
+  .risk-item.critical { border-left-color: var(--red); }
+  .risk-item.warning { border-left-color: var(--yellow); }
+  .risk-item.ok { border-left-color: var(--green); }
+  .risk-item .risk-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .risk-item .risk-status { font-size: 0.95rem; font-weight: 600; }
+  .risk-item .risk-detail { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .health-score-container { background: var(--surface2); border-radius: 10px; padding: 24px; margin-bottom: 20px; text-align: center; }
+  .health-score { font-size: 3.5rem; font-weight: 700; margin-bottom: 4px; }
+  .health-score.good { color: var(--green); }
+  .health-score.fair { color: var(--yellow); }
+  .health-score.poor { color: var(--red); }
+  .health-label { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .verdict-card { background: var(--surface2); border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+  .verdict-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .verdict-card p { color: var(--muted); font-size: 0.9rem; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .badge { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
+  .footer { border-top: 1px solid var(--border); margin-top: 60px; padding: 32px 0; color: var(--muted); font-size: 0.85rem; }
+  .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .footer-links a { color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+    <a href="https://ziontechgroup.com/" class="logo">Zion <span>Tech Group</span></a>
+    <nav>
+      <a href="https://ziontechgroup.com/discovery/">Discovery $99</a>
+      <a href="https://ziontechgroup.com/plans/">Plans</a>
+      <a href="https://ziontechgroup.com/ai-roi-calculator/">ROI Calculator</a>
+      <a href="https://ziontechgroup.com/ai-agent-workflow-builder/">Workflow Builder</a>
+      <a href="https://ziontechgroup.com/finops-spend-analyzer/">FinOps Analyzer</a>
+      <a href="https://ziontechgroup.com/contact/" class="btn-nav">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <span class="badge">Diagnóstico gratuito · 10 perguntas · Sem cadastro</span>
+    <h1>Managed IT Health Check</h1>
+    <p class="subtitle">Responda 10 perguntas sobre sua infraestrutura IT e receba um score de saúde, riscos críticos e um próximo passo. Sem vender — só diagnóstico.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>1. Sua infraestrutura</h2>
+        <form id="health-form">
+          <div class="form-group">
+            <label>1. Qual o tamanho da sua equipe de TI?</label>
+            <div class="radio-group" data-q="1">
+              <label class="radio-option"><input type="radio" name="q1" value="0-1"> 0–1 pessoa (TI "debolado" ou outsource sem SLA)</label>
+              <label class="radio-option"><input type="radio" name="q1" value="2-3"> 2–3 pessoas (equipe pequena, comum em mid-market)</label>
+              <label class="radio-option"><input type="radio" name="q1" value="4-10"> 4–10 pessoas (equipe dedicada, mas sem estrutura de NOC/SOC)</label>
+              <label class="radio-option"><input type="radio" name="q1" value="10+"> 10+ pessoas (equipe estruturada)</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>2. Você tem monitoramento 24/7 de servidores, rede e aplicações?</label>
+            <div class="radio-group" data-q="2">
+              <label class="radio-option"><input type="radio" name="q2" value="none"> Não — descubro problemas quando usuários reclamam</label>
+              <label class="radio-option"><input type="radio" name="q2" value="partial"> Parcial — monitoro servidores, mas não aplicações ou rede</label>
+              <label class="radio-option"><input type="radio" name="q2" value="yes-but-noalerts"> Sim, mas sem alerts configurados / não tenho um engineer nomeado para responder</label>
+              <label class="radio-option"><input type="radio" name="q2" value="yes"> Sim — monitoramento + alerts + engineer nomeado para responder</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>3. Como você faz patch management de servidores e estações?</label>
+            <div class="radio-group" data-q="3">
+              <label class="radio-option"><input type="radio" name="q3" value="manual"> Manual — cada um atualiza quando lembra</label>
+              <label class="radio-option"><input type="radio" name="q3" value=" sporadic"> Esporádico —a vezes um técnico faz, sem janela definida</label>
+              <label class="radio-option"><input type="radio" name="q3" value="scheduled"> Programado — janela mensal, mas sem teste antes de produção</label>
+              <label class="radio-option"><input type="radio" name="q3" value="automated-tested"> Automatizado + testado em staging antes de produção</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>4. Qual seu relacionamento com fornecedores de hardware (Dell, HPE, etc.)?</label>
+            <div class="radio-group" data-q="4">
+              <label class="radio-option"><input type="radio" name="q4" value="no-contract"> Sem contrato de suporte ativo — compro sob demanda</label>
+              <label class="radio-option"><input type="radio" name="q4" value="expired"> Contrato expirado — renovação pendente há meses</label>
+              <label class="radio-option"><input type="radio" name="q4" value="single-vendor"> Contrato ativo com um fornecedor, mas sem segunda opção</label>
+              <label class="radio-option"><input type="radio" name="q4" value="multi"> Múltiplos fornecedores com SLA ativo + técnico nomeado internamente</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>5. Qual seu tempo médio de resolução (MTTR) para incidentes de TI?</label>
+            <div class="radio-group" data-q="5">
+              <label class="radio-option"><input type="radio" name="q5" value="unknown"> Não sei medir — resolvo quando resolve</label>
+              <label class="radio-option"><input type="radio" name="q5" value="24h+"> 24h+ — incide no dia útil seguinte</label>
+              <label class="radio-option"><input type="radio" name="q5" value="4-8h"> 4–8 horas — dentro do dia, mas sem SLA escrito</label>
+              <label class="radio-option"><input type="radio" name="q5" value="1-4h"> 1–4 horas — com processo documentado</label>
+              <label class="radio-option"><input type="radio" name="q5" value="under-1h"> Menos de 1h — com SLA escrito e engineer nomeado</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>6. Você tem backup testado de servidores e dados críticos?</label>
+            <div class="radio-group" data-q="6">
+              <label class="radio-option"><input type="radio" name="q6" value="no-backup"> Não tenho backup formal — confio no "tem algo"</label>
+              <label class="radio-option"><input type="radio" name="q6" value="unrestored"> Backup feito, mas nunca testado restauração</label>
+              <label class="radio-option"><input type="radio" name="q6" value="tested-rare"> Restauração testada, mas não periodicamente (a cada 6+ meses)</label>
+              <label class="radio-option"><input type="radio" name="q6" value="tested-regular"> Backup + restauração testada regularmente + plano de recuperação documentado</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>7. Como você escala incidentes fora do horário comercial?</label>
+            <div class="radio-group" data-q="7">
+              <label class="radio-option"><input type="radio" name="q7" value="no-escalation"> Não existe escalação — problema espera até segunda</label>
+              <label class="radio-option"><input type="radio" name="q7" value="on-call-unsure"> Tenho um on-call, mas sem rota definida / sem SLA de resposta</label>
+              <label class="radio-option"><input type="radio" name="q7" value="on-call-defined"> On-call com rota definida, mas sem cobertura real de 24/7</label>
+              <label class="radio-option"><input type="radio" name="q7" value="24-7"> 24/7 com engineer nomeado + SLA de resposta escrito</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>8. Qual a proporção de incidentes repetitivos que sua equipe lida?</label>
+            <div class="radio-group" data-q="8">
+              <label class="radio-option"><input type="radio" name="q8" value="most"> A maioria — mesmo problema semana após semana</label>
+              <label class="radio-option"><input type="radio" name="q8" value="half"> Cerca de metade — alguns padrões, mas sem automação</label>
+              <label class="radio-option"><input type="radio" name="q8" value="few"> Poucos — a equipe resolve variado, sem repetitivo grave</label>
+              <label class="radio-option"><input type="radio" name="q8" value="few-automated"> Poucos — e já temos automação para os repetitivos</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>9. Quem é o responsável nomeado por TI / infraestrutura na sua empresa?</label>
+            <div class="radio-group" data-q="9">
+              <label class="radio-option"><input type="radio" name="q9" value="nobody"> Nenhum — "TI é de alguém, mas ninguém sabe quem"</label>
+              <label class="radio-option"><input type="radio" name="q9" value="it-manager"> Gerente de TI / CTO — mas não tem engineer nomeado para incidentes</label>
+              <label class="radio-option"><input type="radio" name="q9" value="engineer-named"> Engineer nomeado, mas sem gestor dedicado</label>
+              <label class="radio-option"><input type="radio" name="q9" value="both"> Gestor + engineer nomeado, com processo documentado</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>10. Qual seu situação atual de contratação / outsourcing de TI?</label>
+            <div class="radio-group" data-q="10">
+              <label class="radio-option"><input type="radio" name="q10" value="nothing"> Não temos nada estruturado — cada um resolve</label>
+              <label class="radio-option"><input type="radio" name="q10" value="partial-outsourced"> Parcialmente outsource — sem SLA escrito, sem gestão unificada</label>
+              <label class="radio-option"><input type="radio" name="q10" value="ms-managed"> MSP ou serviço gerenciado, mas sem engineer nomeado da Zion</label>
+              <label class="radio-option"><input type="radio" name="q10" value="zion-or-equivalent"> Temos serviço gerenciado com engineer nomeado + SLA</label>
+            </div>
+          </div>
+
+          <button type="button" class="btn-primary" id="check-btn">Diagnosticar saúde de TI</button>
+        </form>
+      </div>
+
+      <div>
+        <div class="card" style="height: fit-content;">
+          <h2>2. Seu diagnóstico</h2>
+          <div id="results" class="results">
+            <div class="health-score-container">
+              <div class="health-score" id="health-score-value">—</div>
+              <div class="health-label" id="health-label">Score de saúde de TI</div>
+              <div style="font-size: 0.8rem; color: var(--muted); margin-top: 8px;">Baseado nas 10 respostas</div>
+            </div>
+
+            <div class="risk-grid" id="risk-grid">
+              <!-- populated by JS -->
+            </div>
+
+            <div class="verdict-card">
+              <h3>Próximo passo: <span id="next-step-label" style="color: var(--accent);">—</span></h3>
+              <p id="next-step-text">—</p>
+            </div>
+
+            <div class="cta-row">
+              <a href="https://ziontechgroup.com/discovery/" class="btn-primary" style="width: auto; padding: 12px 24px;">Discovery $99 — mapear a área de TI</a>
+              <a href="https://buy.stripe.com/8x214o8NW35l5Xp3hm4ZG0b" class="btn-secondary" style="width: auto; padding: 12px 24px;" target="_blank">Pagar Discovery $99 (USD)</a>
+            </div>
+            <p style="margin-top: 12px; font-size: 0.8rem; color: var(--muted);">
+              Serviços de TI gerenciados: <a href="https://ziontechgroup.com/managed-it-services/" style="color: var(--accent);">Managed IT</a> ·
+              <a href="https://ziontechgroup.com/ai-agent-workflow-builder/" style="color: var(--accent);">Agente de triagem de tickets</a> ·
+              <a href="https://ziontechgroup.com/finops-spend-analyzer/" style="color: var(--accent);">FinOps</a>
+            </p>
+          </div>
+          <div id="results-placeholder" style="color: var(--muted); font-size: 0.9rem; padding: 20px 0;">
+            Responda as 10 perguntas e clique em "Diagnosticar". Receba score, riscos e próximo passo.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <a href="https://ziontechgroup.com/" style="color: var(--accent); font-weight: 600;">Zion Tech Group</a> · Managed IT · Monitoramento · Patch · Backup · Escalação nomeada
+      <br><span style="font-size: 0.75rem;">Prova FGV de renovação · Cobrancia Brazil e LATAM</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://ziontechgroup.com/discovery/">Discovery $99</a>
+      <a href="https://ziontechgroup.com/plans/">Plans</a>
+      <a href="https://ziontechgroup.com/ai-roi-calculator/">ROI Calculator</a>
+      <a href="https://ziontechgroup.com/ai-agent-workflow-builder/">Workflow Builder</a>
+      <a href="https://ziontechgroup.com/finops-spend-analyzer/">FinOps Analyzer</a>
+      <a href="https://ziontechgroup.com/contact/">Contato</a>
+      <a href="https://github.com/Zion-support/managed-it-health-check">Código</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const questions = [
+    { id: 'q1', weight: 1.0, scores: { '0-1': 0, '2-3': 25, '4-10': 55, '10+': 80 } },
+    { id: 'q2', weight: 1.3, scores: { 'none': 0, 'partial': 20, 'yes-but-noalerts': 45, 'yes': 85 } },
+    { id: 'q3', weight: 1.1, scores: { 'manual': 0, 'sporadic': 15, 'scheduled': 40, 'automated-tested': 80 } },
+    { id: 'q4', weight: 1.2, scores: { 'no-contract': 0, 'expired': 15, 'single-vendor': 45, 'multi': 80 } },
+    { id: 'q5', weight: 1.3, scores: { 'unknown': 0, '24h+': 15, '4-8h': 40, '1-4h': 65, 'under-1h': 90 } },
+    { id: 'q6', weight: 1.4, scores: { 'no-backup': 0, 'unrestored': 20, 'tested-rare': 50, 'tested-regular': 85 } },
+    { id: 'q7', weight: 1.3, scores: { 'no-escalation': 0, 'on-call-unsure': 20, 'on-call-defined': 50, '24-7': 85 } },
+    { id: 'q8', weight: 0.9, scores: { 'most': 0, 'half': 25, 'few': 55, 'few-automated': 75 } },
+    { id: 'q9', weight: 1.1, scores: { 'nobody': 0, 'it-manager': 30, 'engineer-named': 55, 'both': 80 } },
+    { id: 'q10', weight: 1.0, scores: { 'nothing': 0, 'partial-outsourced': 25, 'ms-managed': 55, 'zion-or-equivalent': 80 } }
+  ];
+
+  const riskDescriptions = {
+    q1: { critical: 'Sem equipe de TI ou apenas 1 pessoa — risco operacional alto', warning: 'Equipe pequena — capacidade limitada para crescer', ok: 'Equipe de TI com capacidade' },
+    q2: { critical: 'Sem monitoramento 24/7 — descobre problemas quando o usuário reclama', warning: 'Monitoramento parcial — gaps em aplicações ou rede', ok: 'Monitoramento ativo com engineer nomeado' },
+    q3: { critical: 'Patch manual — servidores expostos a vulnerabilidades conhecidas', warning: 'Patch esporádico — sem janela definida', ok: 'Patch programado e testado' },
+    q4: { critical: 'Sem contrato de suporte ativo — depende de compra sob demanda', warning: 'Contato expirado ou único fornecedor — sem segunda opção', ok: 'Múltiplos fornecedores com SLA' },
+    q5: { critical: 'MTTR desconhecido ou > 24h — impacto no negócio sem medida', warning: 'MTTR de 4–8h sem SLA escrito', ok: 'MTTR medido com SLA' },
+    q6: { critical: 'Sem backup testado — risco de perda de dados críticos', warning: 'Backup feito mas restauração nunca testada', ok: 'Backup + restauração testada regularmente' },
+    q7: { critical: 'Sem escalação fora do horário — incidentes esperam até segunda', warning: 'On-call sem rota ou SLA definido', ok: '24/7 com engineer nomeado + SLA' },
+    q8: { critical: 'Incidentes repetitivos dominam a fila — equipe em lamentável ciclo', warning: 'Metade dos incidentes repetitivos — sem automação', ok: 'Poucos repetitivos, com ou sem automação' },
+    q9: { critical: 'Nenhum responsável nomeado por TI — ninguém responde por infraestrutura', warning: 'Gerente sem engineer nomeado — gestão sem execução', ok: 'Gestor + engineer nomeado' },
+    q10: { critical: 'TI não estruturado — cada um resolve, sem padrão', warning: 'Outsource sem SLA ou gestão unificada', ok: 'Serviço gerenciado com engineer nomeado + SLA' }
+  };
+
+  const checkBtn = document.getElementById('check-btn');
+  const results = document.getElementById('results');
+  const placeholder = document.getElementById('results-placeholder');
+
+  checkBtn.addEventListener('click', function() {
+    let totalScore = 0;
+    let totalWeight = 0;
+    const answers = {};
+
+    questions.forEach(q => {
+      const selected = document.querySelector('input[name="' + q.id + '"]:checked');
+      const val = selected ? selected.value : null;
+      answers[q.id] = val;
+      if (val && q.scores[val] !== undefined) {
+        totalScore += q.scores[val] * q.weight;
+        totalWeight += q.weight;
+      }
+    });
+
+    if (totalWeight === 0) {
+      alert('Responda a todas as perguntas antes de diagnosticar.');
+      return;
+    }
+
+    const pct = Math.round(totalScore / totalWeight);
+    const scoreEl = document.getElementById('health-score-value');
+    scoreEl.textContent = pct;
+    scoreEl.className = 'health-score ' + (pct >= 65 ? 'good' : pct >= 35 ? 'fair' : 'poor');
+    document.getElementById('health-label').textContent = pct >= 65 ? 'Saúde de TI: BOM' : pct >= 35 ? 'Saúde de TI: PRECISA MELHORAR' : 'Saúde de TI: CRÍTICO';
+
+    // Risk grid
+    const riskGrid = document.getElementById('risk-grid');
+    riskGrid.innerHTML = '';
+    const risks = [];
+
+    questions.forEach(q => {
+      const val = answers[q.id];
+      if (!val) return;
+      const desc = riskDescriptions[q.id];
+      let level, statusText, detail;
+      if (q.scores[val] <= 15) {
+        level = 'critical';
+        statusText = 'CRÍTICO';
+        detail = desc.critical;
+      } else if (q.scores[val] <= 40) {
+        level = 'warning';
+        statusText = 'ATENÇÃO';
+        detail = desc.warning;
+      } else {
+        level = 'ok';
+        statusText = 'OK';
+        detail = desc.ok;
+      }
+      risks.push({ id: q.id, level, statusText, detail });
+    });
+
+    risks.forEach(r => {
+      const item = document.createElement('div');
+      item.className = 'risk-item ' + r.level;
+      const qNum = parseInt(r.id.replace('q', ''));
+      item.innerHTML =
+        '<div class="risk-label">Pergunta ' + qNum + '</div>' +
+        '<div class="risk-status">' + r.statusText + '</div>' +
+        '<div class="risk-detail">' + r.detail + '</div>';
+      riskGrid.appendChild(item);
+    });
+
+    // Next step
+    let nextStepLabel, nextStepText, nextColor;
+    const criticalCount = risks.filter(r => r.level === 'critical').length;
+    const warningCount = risks.filter(r => r.level === 'warning').length;
+
+    if (criticalCount >= 3 || pct < 30) {
+      nextStepLabel = 'URGENTE — estruturar TI antes de escalar';
+      nextStepText = 'Múltiplos riscos críticos: sem monitoramento 24/7, sem backup testado, sem escalação, sem responsável nomeado. Priorize Discovery $99 para mapear a área de TI e identificar os 3 primeiros gaps a fechar. Se precisar de estrutura rápida, Managed IT com engineer nomeado pode cobrir o básico em semanas, não meses.';
+      nextColor = 'var(--red)';
+    } else if (criticalCount >= 1 || pct < 50) {
+      nextStepLabel = 'Melhorar — focar nos críticos primeiro';
+      nextStepText = 'Você tem uma base, mas ' + criticalCount + ' risco(s) crítico(s) e ' + warningCount + ' atenção(ões) precisam de atenção. Discovery $99 ajuda a priorizar: quais gaps fechar primeiro, qual fornecedor/tenant abordar, e se um agente de triagem de tickets pode aliviar a fila de repetitivos.';
+      nextColor = 'var(--yellow)';
+    } else {
+      nextStepLabel = 'Manter — sua base é sólida';
+      nextStepText = 'Sua infraestrutura de TI tem boa saúde. Foque em manutenção: garantir que backup e restauração continuam testados, monitoramento e alerts atualizados, e engineer nomeado com processo documentado. Se quiser elevar para o próximo nível, Growth $8.000/mês entrega operação gerida com SLA escrito e change control.';
+      nextColor = 'var(--green)';
+    }
+
+    document.getElementById('next-step-label').textContent = nextStepLabel;
+    document.getElementById('next-step-label').style.color = nextColor;
+    document.getElementById('next-step-text').textContent = nextStepText;
+
+    placeholder.style.display = 'none';
+    results.classList.add('visible');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  window.addEventListener('load', function() {
+    // Pre-select first option of each for demo
+    questions.forEach(q => {
+      const first = document.querySelector('input[name="' + q.id + '"]');
+      if (first) {
+        const parent = first.closest('.radio-option');
+        if (parent) parent.click();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
